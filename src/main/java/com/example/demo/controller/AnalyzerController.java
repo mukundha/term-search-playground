@@ -15,7 +15,6 @@ import java.io.StringReader;
 import java.util.Set;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import org.apache.lucene.analysis.util.TokenizerFactory;
 import org.apache.lucene.analysis.util.TokenFilterFactory;
@@ -58,14 +57,12 @@ public class AnalyzerController {
         try {
             ts.reset(); // Resets this stream to the beginning. (Required)
             while (ts.incrementToken()) {
-              // Use AttributeSource.reflectAsString(boolean)
-              // for token stream debugging.
               String t = offsetAtt.toString();
               System.out.println("token: " + t );         
               tokens.add(t);
             }
-            ts.end();   // Perform end-of-stream operations, e.g. set the final offset.
-            ts.close(); // Release resources associated with this stream.
+            ts.end();   
+            ts.close(); 
           } catch(Exception e){
              System.out.println(e);
           }finally {
@@ -75,7 +72,5 @@ public class AnalyzerController {
         model.addAttribute("availableFilters", availableFilters);
         model.addAttribute("analyzedText", Arrays.toString(tokens.toArray()));
         return "index";
-    }
-
-    // Implement createCustomAnalyzer and analyzeText methods as discussed in previous responses
+    }   
 }
