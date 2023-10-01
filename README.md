@@ -40,3 +40,5 @@ When run, this project allows users to choose a Token and a list of Filters and 
 for example,
 
 ![image](images/ss1.png)
+
+Have fun!
