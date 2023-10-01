@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lucene Analyzer Playground</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .left-panel {
+            flex: 1;
+            padding: 50px;
+            background-color: #f0f0f0;
+        }
+
+        .right-panel {
+            flex: 2;
+            padding: 10px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-top: 0;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        select[multiple] {
+            height: 100px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        hr {
+            margin-top: 20px;
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+
+        .result {
+            margin-top: 20px;
+        }
+
+        .result h2 {
+            font-size: 20px;
+        }
+
+        .result p {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>    
+    <div class="container">    
+    <div class="left-panel">
+    <p>Analyzer playground options</p>
+    <form method="post" action="/analyze">
+        <div>
+            <label for="text">Enter Text:</label>
+            <textarea id="text" name="text" rows="4" cols="50">Hello world! What's going on!?!</textarea>
+        </div>
+        <div>
+            <label for="tokenizerClass">Select Tokenizer:</label>
+            <select id="tokenizerClass" name="tokenizerClass">
+                <option th:value="standard" th:text="standard" selected></option>
+                <option th:each="tokenizer : ${availableTokenizers}" th:value="${tokenizer}"
+                        th:text="${tokenizer}"></option>
+            </select>
+        </div>
+        <div>
+            <label for="filterClasses">Select Filters (Ctrl+Click to select multiple):</label>
+            <select id="filterClasses" name="filterClasses" multiple size="15">
+                <option th:value="porterstem" th:text="porterstem" selected></option>
+                <option th:each="filter : ${availableFilters}" th:value="${filter}"
+                        th:text="${filter}"></option>
+                        
+            </select>
+        </div>
+        <div>
+            <button type="submit">Analyze</button>
+        </div>
+    </form>
+    </div> 
+    <div class="right-panel">
+
+    <div class="result" th:if="${analyzedText}">
+        <h2>Tokenized Text:</h2>
+        <p th:text="${analyzedText}"></p>
+    </div>
+    </div>
+</div>
+</body>
+</html>
